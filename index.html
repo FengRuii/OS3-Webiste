@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stanford Open Source Silicon</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        function start() {
+            gapi.client.init({
+                'apiKey': 'AIzaSyA54UrQDStTUyKJKhyOhqXUsYCnTQFUHVU',
+                'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+            }).then(function () {
+                return gapi.client.calendar.events.list({
+                    'calendarId': 'fengrui1028@gmail.com',
+                    'timeMin': (new Date()).toISOString(),
+                    'showDeleted': false,
+                    'singleEvents': true,
+                    'maxResults': 10,
+                    'orderBy': 'startTime'
+                });
+            }).then(function (response) {
+                var events = response.result.items;
+                var eventList = document.getElementById('event-list');
+
+                if (events.length > 0) {
+                    for (i = 0; i < events.length; i++) {
+                        var event = events[i];
+                        var when = event.start.dateTime;
+                        if (!when) {
+                            when = event.start.date;
+                        }
+                        var listItem = document.createElement('li');
+                        listItem.appendChild(document.createTextNode(event.summary + ' (' + when + ')'));
+                        eventList.appendChild(listItem);
+                    }
+                } else {
+                    eventList.appendChild(document.createTextNode('No upcoming events found.'));
+                }
+            });
+        }
+
+        gapi.load('client', start);
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Stanford Open Source Silicon</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li class="dropdown">
+                        <a href="#team" class="dropbtn">Team</a>
+                        <div class="dropdown-content">
+                            <a href="#digital">Digital Subteam</a>
+                            <a href="#analog">Analog Subteam</a>
+                            <a href="#physical">Physical Design Subteam</a>
+                            <a href="#project">Project Management</a>
+                            <a href="#software">Software Subteam</a>
+                            <a href="#board">Board Subteam</a>
+                        </div>
+                    </li>
+                    <li><a href="#join">Join</a></li>
+                    <li><a href="#sponsors">Sponsors</a></li>
+                    <li><a href="#calendar">Calendar</a></li>
+                    <li><a href="#upcoming-events">Upcoming Events</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h2>Innovating Open Source Hardware Solutions</h2>
+                <p>Join us in pioneering open source silicon design and development.</p>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2>About Us</h2>
+            <p>The Stanford Open Source Silicon group is dedicated to advancing the field of open source hardware. Our mission is to develop and promote open, collaborative silicon designs that push the boundaries of technology and innovation.</p>
+        </section>
+
+        <section id="projects" class="container">
+            <h2>Our Projects</h2>
+            <p>Explore the innovative projects we're working on to make silicon design more accessible and collaborative.</p>
+            <!-- Add project details here -->
+        </section>
+
+        <section id="digital" class="container">
+            <h2>Digital Subteam</h2>
+            <p>Details about the Digital Subteam.</p>
+        </section>
+
+        <section id="analog" class="container">
+            <h2>Analog Subteam</h2>
+            <p>Details about the Analog Subteam.</p>
+        </section>
+
+        <section id="physical" class="container">
+            <h2>Physical Design Subteam</h2>
+            <p>Details about the Physical Design Subteam.</p>
+        </section>
+
+        <section id="project" class="container">
+            <h2>Project Management</h2>
+            <p>Details about the Project Management team.</p>
+        </section>
+
+        <section id="software" class="container">
+            <h2>Software Subteam</h2>
+            <p>Details about the Software Subteam.</p>
+        </section>
+
+        <section id="board" class="container">
+            <h2>Board Subteam</h2>
+            <p>Details about the Board Subteam.</p>
+        </section>
+
+        <section id="join" class="container">
+            <h2>Join Us</h2>
+            <p>Information on how to join the Stanford Open Source Silicon group.</p>
+        </section>
+
+        <section id="sponsors" class="container">
+            <h2>Sponsors</h2>
+            <p>Information about our sponsors and how to support our work.</p>
+        </section>
+
+        <section id="calendar" class="container">
+            <h2>Calendar</h2>
+            <iframe src="YOUR_GOOGLE_CALENDAR_EMBED_LINK_HERE" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </section>
+
+        <section id="upcoming-events" class="container">
+            <h2>Upcoming Events</h2>
+            <ul id="event-list">
+                <!-- Event items will be populated here by JavaScript -->
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Stanford Open Source Silicon. All rights reserved.</p>
+            <a href="#contact" id="contact">Contact Us</a>
+        </div>
+    </footer>
+</body>
+</html>
